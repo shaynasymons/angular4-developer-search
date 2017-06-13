@@ -1,0 +1,6 @@
+html {font-size:62.5%;}
+body {font-family:'Open Sans', sans-serif;}
+.row {margin-top:3rem;}
+.mat-toolbar {color:#fff !important;background:#337ab7 !important;}
+.tb-spacer {flex: 1 1 auto;}
+.su-content .img-responsive {max-width:50%;margin:0 auto;}

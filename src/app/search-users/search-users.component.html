@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <md-toolbar>
+                <span [class.hidden]="byUsername">GitHub Developers by Location and Language</span>
+                <span [class.hidden]="!byUsername">GitHub Developers by Username</span>
+                <span class="tb-spacer"></span>
+                <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon></button>
+            </md-toolbar>
+            <md-menu #appMenu="mdMenu" [overlapTrigger]="false">
+                <button md-menu-item (click)="searchBy('location');"> Search By Location </button>
+                <button md-menu-item (click)="searchBy('username');"> Search By Username </button>
+            </md-menu>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="form-inline">
+                <input placeholder="Location" [ngClass]="{'form-control input-lg input': !byUsername, 'hide': byUsername}" #place (keyup.enter)="search(place.value, language.value, username.value); username.value=''; place.value=''; language.value='';" />
+                <input placeholder="Language e.g. Java" [ngClass]="{'form-control input-lg input': !byUsername, 'hide': byUsername}" #language (keyup.enter)="search(place.value, language.value, username.value); username.value=''; place.value=''; language.value='';" />
+                <input placeholder="Username" [ngClass]="{'form-control input-lg input': byUsername, 'hide': !byUsername}" #username (keyup.enter)="search(place.value, language.value, username.value); username.value=''; place.value=''; language.value='';" />
+                <button class="btn btn-primary btn-lg" (click)="search(place.value, language.value, username.value); username.value=''; place.value=''; language.value='';">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p class="text-center" style="padding: 1em; color:red;" *ngIf="error_text">{{ error_text }}</p>
+        <div [ngClass]="{'col-md-9': selected, 'col-md-12': !selected, 'hide': singleUser}">
+            <div class="user col-md-2 text-center" *ngFor="let user of results" (click)="getDetails(user.login)">
+                <div class="img_container">
+                    <img src="{{user.avatar_url}}" class="img-circle" width="100" height="100">
+                </div>
+                <div class="details_container">
+                    <a href="{{user.html_url}}" target="_blank" class="login_name">{{ user.login }}</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="results.length && selected" [ngClass]="{'col-md-3': selected && !singleUser, 'hide': !selected, 'col-md-12': singleUser}">
+            <div [ngClass]="{'box text-center col-md-6 col-md-push-3 su-content': singleUser, 'box text-center': !singleUser}">
+                <img src="{{selectedUser.avatar_url}}" class="img-responsive img-circle">
+                <div class="details">
+                    <div *ngIf="selectedUser.name"><a href="{{ selectedUser.html_url }}" target="_blank"><h3>{{ selectedUser.name }} </h3></a></div>
+                    <hr *ngIf="selectedUser.name">
+                    <div *ngIf="selectedUser.email">Email: {{ selectedUser.email }}</div>
+                    <hr *ngIf="selectedUser.email">
+                    <div *ngIf="selectedUser.location">Location: {{ selectedUser.location }}</div>
+                    <hr *ngIf="selectedUser.location">
+                    <div *ngIf="selectedUser.bio">Bio: {{ selectedUser.bio }}</div>
+                    <hr *ngIf="selectedUser.bio">
+                    <div *ngIf="selectedUser.updated_at">Last Seen: {{ selectedUser.updated_at | date }}</div>
+                    <hr *ngIf="selectedUser.updated_at">
+                    <div *ngIf="selectedUser.public_repos">Repos: {{ selectedUser.public_repos }}</div>
+                    <hr *ngIf="selectedUser.public_repos">
+                    <div *ngIf="selectedUser.public_gists">Gists: {{ selectedUser.public_gists }}</div>
+                    <hr *ngIf="selectedUser.public_gists">
+                    <div *ngIf="selectedUser.followers">Followers: {{ selectedUser.followers }}</div>
+                    <hr *ngIf="selectedUser.followers">
+                    <div *ngIf="selectedUser.created_at">Joined github: {{ selectedUser.created_at | date }}</div>
+                    <hr *ngIf="selectedUser.created_at">
+                    <button *ngIf="!singleUser" class="btn btn-sm btn-primary" (click)="selected = !selected">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
