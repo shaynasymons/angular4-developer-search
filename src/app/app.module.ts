@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdMenuModule, MdTabsModule, MdButtonModule, MdDialogModule, MdInputModule, MdToolbarModule, MdIconModule } from '@angular/material';
+import { MdMenuModule, MdTabsModule, MdButtonModule, MdDialogModule, MdInputModule, MdToolbarModule, MdIconModule, MdProgressSpinnerModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { SearchUsersService } from './search-users.service';
@@ -23,7 +23,8 @@ import { SearchUsersService } from './search-users.service';
         MdDialogModule, 
         MdInputModule,
         MdToolbarModule, 
-        MdIconModule
+        MdIconModule,
+        MdProgressSpinnerModule
     ],
     providers: [SearchUsersService],
     bootstrap: [AppComponent]

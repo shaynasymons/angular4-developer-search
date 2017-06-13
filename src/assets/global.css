@@ -3,4 +3,6 @@ body {font-family:'Open Sans', sans-serif;}
 .row {margin-top:3rem;}
 .mat-toolbar {color:#fff !important;background:#337ab7 !important;}
 .tb-spacer {flex: 1 1 auto;}
+.mat-spinner {margin:0 auto;}
+.mat-spinner path {stroke:#337ab7 !important;}
 .su-content .img-responsive {max-width:50%;margin:0 auto;}

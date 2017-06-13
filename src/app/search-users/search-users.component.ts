@@ -16,6 +16,7 @@ export class SearchUsersComponent implements OnInit {
     byUsername: boolean = false; 
     searchByVal: string;
     singleUser: boolean = false;
+    submitted: boolean = false;
     selectedUser: any; 
     error_text: string = "";
 
@@ -24,13 +25,16 @@ export class SearchUsersComponent implements OnInit {
     search(place: string, language: string, username: string) {
         this.selected = false;
         this.singleUser = false;
+        this.submitted = false;
         this.error_text = "";
         if (place || language || username) {
+            this.submitted = true;
             this.place = place;
             this.language = language;
             this.username = username;
             this.searchService.getUsersByPlaceAndLanguage(place, language, username).subscribe(
-                users => {
+                users => { 
+                    this.submitted = false;
                     this.results = users;
                     if (this.results.length == 1) {
                         this.singleUser = true;
